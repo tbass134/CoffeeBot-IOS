@@ -1,0 +1,6 @@
+framework module Pods_SiriKit {
+  umbrella header "Pods-SiriKit-umbrella.h"
+
+  export *
+  module * { export * }
+}
