@@ -246,8 +246,8 @@
 		3C6DFC621ED86E3B002822D0 /* OpenWeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6DFC611ED86E3B002822D0 /* OpenWeatherAPI.swift */; };
 		3C6DFC681EDA18E8002822D0 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C6DFC661EDA18E8002822D0 /* Fabric.framework */; };
 		3C6DFC691EDA18E8002822D0 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C6DFC671EDA18E8002822D0 /* Crashlytics.framework */; };
-		3CA1716E21FE15F300A1F241 /* coffee_prediction.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3CA1716D21FE15F300A1F241 /* coffee_prediction.mlmodel */; };
-		3CA1716F21FE15F300A1F241 /* coffee_prediction.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3CA1716D21FE15F300A1F241 /* coffee_prediction.mlmodel */; };
+		3CA1717721FE17C200A1F241 /* coffee_prediction.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3CA1717621FE17C200A1F241 /* coffee_prediction.mlmodel */; };
+		3CA1717821FE17C200A1F241 /* coffee_prediction.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3CA1717621FE17C200A1F241 /* coffee_prediction.mlmodel */; };
 		3CA4E6CA20DEB49700217292 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA4E6C920DEB49700217292 /* UIViewController+Extensions.swift */; };
 		3CA4E6CE20DEBC6A00217292 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA4E6CD20DEBC6A00217292 /* LoginViewController.swift */; };
 		3CA4E6D020DEC4E000217292 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA4E6CF20DEC4E000217292 /* TabBarController.swift */; };
@@ -541,7 +541,7 @@
 		3C6DFC611ED86E3B002822D0 /* OpenWeatherAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenWeatherAPI.swift; sourceTree = "<group>"; };
 		3C6DFC661EDA18E8002822D0 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		3C6DFC671EDA18E8002822D0 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		3CA1716D21FE15F300A1F241 /* coffee_prediction.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = coffee_prediction.mlmodel; path = ../../../coffee_prediction.mlmodel; sourceTree = "<group>"; };
+		3CA1717621FE17C200A1F241 /* coffee_prediction.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = coffee_prediction.mlmodel; path = CoffeeChooser/coffee_prediction.mlmodel; sourceTree = SOURCE_ROOT; };
 		3CA4E6C920DEB49700217292 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		3CA4E6CD20DEBC6A00217292 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3CA4E6CF20DEC4E000217292 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -885,7 +885,7 @@
 		3CC52732202F5087006FB9E6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3CA1716D21FE15F300A1F241 /* coffee_prediction.mlmodel */,
+				3CA1717621FE17C200A1F241 /* coffee_prediction.mlmodel */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1402,7 +1402,7 @@
 				3C18C9902143283100908CF7 /* INIntent+extensions.swift in Sources */,
 				3CA4E6D020DEC4E000217292 /* TabBarController.swift in Sources */,
 				3CA4E6CA20DEB49700217292 /* UIViewController+Extensions.swift in Sources */,
-				3CA1716E21FE15F300A1F241 /* coffee_prediction.mlmodel in Sources */,
+				3CA1717721FE17C200A1F241 /* coffee_prediction.mlmodel in Sources */,
 				3CA4E6D420E4699200217292 /* UITabBar+extension.swift in Sources */,
 				3C11D7B91FF5D9AE0008BBA3 /* LocationManager.swift in Sources */,
 				450B1BE5213652A20056C876 /* CoffeeTypePrediction.swift in Sources */,
@@ -1421,7 +1421,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				450B1BE6213652A20056C876 /* CoffeeTypePrediction.swift in Sources */,
-				3CA1716F21FE15F300A1F241 /* coffee_prediction.mlmodel in Sources */,
+				3CA1717821FE17C200A1F241 /* coffee_prediction.mlmodel in Sources */,
 				4549AF842137BDF800B650E9 /* SelectIcedCoffeeIntentHandler.swift in Sources */,
 				4554C526214092A90078BC66 /* ApplicationBuilder.swift in Sources */,
 				4549AF872137C0E700B650E9 /* CoffeeTypeTrain.swift in Sources */,
