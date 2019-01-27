@@ -44,17 +44,15 @@ class CoffeeTypePrediction {
                     mlMultiArray[index] = NSNumber(floatLiteral: element )
                 }
                 let input = coffee_predictionInput(input: mlMultiArray)
-                guard let prediction = try? model.prediction(input: input) else {
-                    return
-                }
-                
-                let result = prediction
-                
-                print(result.classProbability)
-                
-                completion(result, json)
-                
-                
+				
+				do {
+					let prediction = try model.prediction(input: input)
+					completion(prediction, json)
+				} catch {
+					print(error)
+				}
+
+			
                 
             } else {
                 // Fallback on earlier versions
