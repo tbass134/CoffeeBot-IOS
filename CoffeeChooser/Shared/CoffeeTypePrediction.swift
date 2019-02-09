@@ -17,6 +17,8 @@ import Intents
 class CoffeeTypePrediction {
     
     static let shared = CoffeeTypePrediction()
+	let calendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
+	
 
     func predict(_ location:CLLocationCoordinate2D, completion: @escaping (_ prediction: coffee_predictionOutput?, _ jsonResponse:JSON?) -> Void) {
         
@@ -29,7 +31,7 @@ class CoffeeTypePrediction {
 
             if #available(iOS 11.0, *) {
                 let model = coffee_prediction()
-                guard let mlMultiArray = try? MLMultiArray(shape:[13,1], dataType:MLMultiArrayDataType.double) else {
+                guard let mlMultiArray = try? MLMultiArray(shape:[23,1], dataType:MLMultiArrayDataType.double) else {
                     fatalError("Unexpected runtime error. MLMultiArray")
                 }
                 var values = [json["clouds"]["all"].doubleValue,
@@ -38,11 +40,51 @@ class CoffeeTypePrediction {
                               round(json["visibility"].doubleValue / 1609.344),
                               round(json["wind"]["speed"].doubleValue),
                               ]
-                
-                values.append(contentsOf: self.toOneHot(json["weather"][0]["main"].stringValue))
+				
+				
+				let day_of_week = Calendar.current.component(.weekday, from: Date()) // 1 - 7\
+				values.append(Double(day_of_week))
+
+				let is_weekend  = (day_of_week == 1 || day_of_week == 7)
+				values.append(is_weekend ? 1 : 0)
+				
+			
+				
+				//season_fall
+				let month = Calendar.current.component(.month, from: Date())
+				var season = [Double](repeating: 0.0, count: 4)
+				if (month>2 && month <= 5) {
+					season[0] = 1
+				} else if (month >= 6 && month <= 8) {
+					season[1] = 1
+				} else if (month >= 9 && month <= 11) {
+					season[2] = 1
+				} else {
+					season[3] = 1
+				}
+				values.append(contentsOf: season)
+				
+				let current_hour = Calendar.current.component(.hour, from: Date())
+				var part_of_day = [Double](repeating: 0.0, count: 4)
+				
+				if (current_hour  >= 5 && current_hour <= 11) {
+					part_of_day[0] = 1
+				} else if (current_hour >= 12 && current_hour <= 17) {
+					part_of_day[1] = 1
+				} else if (current_hour >= 18 && current_hour <= 22) {
+					part_of_day[2] = 1
+				} else {
+					part_of_day[3] = 1
+				}
+				values.append(contentsOf: (part_of_day))
+				
+				values.append(contentsOf: self.toOneHot(json["weather"][0]["main"].stringValue))
+			
+				
                 for (index, element) in values.enumerated() {
                     mlMultiArray[index] = NSNumber(floatLiteral: element )
                 }
+				print("mlMultiArray",mlMultiArray)
                 let input = coffee_predictionInput(input: mlMultiArray)
 				
 				do {
@@ -52,7 +94,6 @@ class CoffeeTypePrediction {
 					print(error)
 				}
 
-			
                 
             } else {
                 // Fallback on earlier versions
@@ -89,4 +130,5 @@ class CoffeeTypePrediction {
         items[index] = 1
         return items
     }
+
 }
