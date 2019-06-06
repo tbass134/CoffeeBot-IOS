@@ -122,7 +122,11 @@ class PredictViewController: SuperViewController {
             self.weatherView?.weatherData = json
             self.weatherView?.view.isHidden = false
             
+          
+            
             print("classLabel \(result.classLabel)")
+            print("classProbability \(result.classProbability)")
+
             
             if result.classLabel == 1 {
                 self.class_image.image = UIImage.init(named: "coffee_hot")
@@ -132,7 +136,7 @@ class PredictViewController: SuperViewController {
                 self.predict_label.text = "Iced Coffee"
             }
             
-            let percent = Int(round(result.classProbability[result.classLabel]! * 100))
+            let percent = Int(result.classProbability! * 100)
             self.predict_label.text = self.predict_label.text! + "\n(\(percent)% confidence)"
 			LocationManager.shared.geocodeLocation(location, completion: { (place) in
 				

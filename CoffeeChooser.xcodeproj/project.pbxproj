@@ -230,8 +230,6 @@
 		3C09B4A220E9488C00733933 /* wi-moon-waxing-gibbous-6.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3C09B3C720E9488C00733933 /* wi-moon-waxing-gibbous-6.svg */; };
 		3C11D7AC1FF4533D0008BBA3 /* PredictViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C11D7AB1FF4533D0008BBA3 /* PredictViewController.swift */; };
 		3C11D7B91FF5D9AE0008BBA3 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C11D7B81FF5D9AE0008BBA3 /* LocationManager.swift */; };
-		3C18C98D2141DB1400908CF7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C18C98C2141DB1400908CF7 /* GoogleService-Info.plist */; };
-		3C18C98E2141DB1400908CF7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C18C98C2141DB1400908CF7 /* GoogleService-Info.plist */; };
 		3C18C9902143283100908CF7 /* INIntent+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C18C98F2143283100908CF7 /* INIntent+extensions.swift */; };
 		3C38979C20EFD5A000E9973E /* Float+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C38979B20EFD5A000E9973E /* Float+extensions.swift */; };
 		3C38979E20EFE3A900E9973E /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C38979D20EFE3A900E9973E /* AboutViewController.swift */; };
@@ -271,6 +269,10 @@
 		45CCFD502132496700C60E7D /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CCFD4F2132496700C60E7D /* IntentHandler.swift */; };
 		45CCFD652132496700C60E7D /* SiriKit.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 45CCFD4D2132496700C60E7D /* SiriKit.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5239BD79F4D3E2370F0863C6 /* Pods_CoffeeChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E710446000FDC711988AF6DB /* Pods_CoffeeChooser.framework */; };
+		5633DBC822A869A800745A85 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5633DBC722A869A800745A85 /* GoogleService-Info.plist */; };
+		5633DBC922A869A800745A85 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5633DBC722A869A800745A85 /* GoogleService-Info.plist */; };
+		5633DBCB22A86BDB00745A85 /* CoffeeBotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5633DBCA22A86BDB00745A85 /* CoffeeBotModel.swift */; };
+		5633DBCC22A86BDB00745A85 /* CoffeeBotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5633DBCA22A86BDB00745A85 /* CoffeeBotModel.swift */; };
 		962507BE7525367B6A5D2D66 /* Pods_SiriKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEB50643F35629D7693F97AF /* Pods_SiriKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -524,7 +526,6 @@
 		3C11D7AE1FF45BCD0008BBA3 /* CoreMLHelpers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CoreMLHelpers; sourceTree = "<group>"; };
 		3C11D7B51FF486E40008BBA3 /* default.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = default.gpx; sourceTree = "<group>"; };
 		3C11D7B81FF5D9AE0008BBA3 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		3C18C98C2141DB1400908CF7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3C18C98F2143283100908CF7 /* INIntent+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "INIntent+extensions.swift"; sourceTree = "<group>"; };
 		3C38979B20EFD5A000E9973E /* Float+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+extensions.swift"; sourceTree = "<group>"; };
 		3C38979D20EFE3A900E9973E /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -564,6 +565,8 @@
 		45CCFD5D2132496700C60E7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		45CCFD5F2132496700C60E7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		494BB076D3E24010948F49DE /* Pods-SiriKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SiriKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SiriKit/Pods-SiriKit.debug.xcconfig"; sourceTree = "<group>"; };
+		5633DBC722A869A800745A85 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5633DBCA22A86BDB00745A85 /* CoffeeBotModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeBotModel.swift; sourceTree = "<group>"; };
 		AEB50643F35629D7693F97AF /* Pods_SiriKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SiriKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCC0F96EE2092BD7A092A52C /* Pods-CoffeeChooser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeChooser.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeChooser/Pods-CoffeeChooser.release.xcconfig"; sourceTree = "<group>"; };
 		D976658CD1DA6BE26B00E73F /* Pods-SiriKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SiriKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-SiriKit/Pods-SiriKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -892,7 +895,7 @@
 		450B1BD72135FC340056C876 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				3C18C98C2141DB1400908CF7 /* GoogleService-Info.plist */,
+				5633DBC722A869A800745A85 /* GoogleService-Info.plist */,
 				3C67E6C9220F5F07008DC3B7 /* coffee_prediction.mlmodel */,
 				450B1BD82135FC580056C876 /* CoffeeBotIntent.intentdefinition */,
 				450B1BDC213643A20056C876 /* CoffeeOrder.swift */,
@@ -901,6 +904,7 @@
 				3C6DFC611ED86E3B002822D0 /* OpenWeatherAPI.swift */,
 				4549AF852137BF1300B650E9 /* CoffeeTypeTrain.swift */,
 				4554C524214090A90078BC66 /* ApplicationBuilder.swift */,
+				5633DBCA22A86BDB00745A85 /* CoffeeBotModel.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1239,7 +1243,6 @@
 				3C09B3CC20E9488C00733933 /* wi-horizon-alt.svg in Resources */,
 				3C09B3DD20E9488C00733933 /* wi-night-alt-sprinkle.svg in Resources */,
 				3C09B42B20E9488C00733933 /* wi-moonset.svg in Resources */,
-				3C18C98D2141DB1400908CF7 /* GoogleService-Info.plist in Resources */,
 				3C09B43E20E9488C00733933 /* wi-day-lightning.svg in Resources */,
 				3C09B43B20E9488C00733933 /* wi-wind-beaufort-11.svg in Resources */,
 				3C09B3D520E9488C00733933 /* wi-night-alt-rain.svg in Resources */,
@@ -1249,6 +1252,7 @@
 				3C09B44E20E9488C00733933 /* wi-night-alt-snow.svg in Resources */,
 				3C09B47820E9488C00733933 /* wi-direction-up-left.svg in Resources */,
 				3C09B44220E9488C00733933 /* wi-wind-beaufort-10.svg in Resources */,
+				5633DBC822A869A800745A85 /* GoogleService-Info.plist in Resources */,
 				3C09B45B20E9488C00733933 /* wi-direction-up.svg in Resources */,
 				3C09B42420E9488C00733933 /* wi-night-alt-snow-thunderstorm.svg in Resources */,
 				3C09B41F20E9488C00733933 /* wi-moon-alt-waxing-crescent-3.svg in Resources */,
@@ -1295,7 +1299,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C18C98E2141DB1400908CF7 /* GoogleService-Info.plist in Resources */,
+				5633DBC922A869A800745A85 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1339,7 +1343,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CoffeeChooser/Pods-CoffeeChooser-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-CoffeeChooser/Pods-CoffeeChooser-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
@@ -1364,7 +1368,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CoffeeChooser/Pods-CoffeeChooser-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoffeeChooser/Pods-CoffeeChooser-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B50E14500C2EEFF11B20E783 /* [CP] Check Pods Manifest.lock */ = {
@@ -1411,6 +1415,7 @@
 				3C6DFC4E1ED864E6002822D0 /* AppDelegate.swift in Sources */,
 				3C38979C20EFD5A000E9973E /* Float+extensions.swift in Sources */,
 				450B1BD92135FC580056C876 /* CoffeeBotIntent.intentdefinition in Sources */,
+				5633DBCB22A86BDB00745A85 /* CoffeeBotModel.swift in Sources */,
 				4554C525214090A90078BC66 /* ApplicationBuilder.swift in Sources */,
 				3C6DFC621ED86E3B002822D0 /* OpenWeatherAPI.swift in Sources */,
 			);
@@ -1426,6 +1431,7 @@
 				4554C526214092A90078BC66 /* ApplicationBuilder.swift in Sources */,
 				4549AF872137C0E700B650E9 /* CoffeeTypeTrain.swift in Sources */,
 				450B1BDE213643A20056C876 /* CoffeeOrder.swift in Sources */,
+				5633DBCC22A86BDB00745A85 /* CoffeeBotModel.swift in Sources */,
 				4549AF7B21379DB600B650E9 /* OpenWeatherAPI.swift in Sources */,
 				450B1BE7213655BE0056C876 /* LocationManager.swift in Sources */,
 				4549AF822137BDD500B650E9 /* SelectHotCoffeeIntentHandler.swift in Sources */,
