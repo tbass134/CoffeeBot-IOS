@@ -33,93 +33,85 @@ class CoffeeTypePrediction {
                 return
             }
 
-            if #available(iOS 11.0, *) {
-				let model = CoffeeBot().model
 			
-				
-				
-				guard let mlMultiArray = try? MLMultiArray(shape:[40,1], dataType:MLMultiArrayDataType.double) else {
-					fatalError("Unexpected runtime error. MLMultiArray")
-				}
-				var values = [json["clouds"]["all"].doubleValue,
-							  json["main"]["humidity"].doubleValue,
-							  round(json["main"]["temp"].doubleValue),
-							  round(json["visibility"].doubleValue / 1609.344),
-							  self.wind_bft(json["wind"]["speed"].doubleValue)
-							  ]
+			let model = CoffeeBot().model
+		
+			
+			guard let mlMultiArray = try? MLMultiArray(shape:[40,1], dataType:MLMultiArrayDataType.double) else {
+				fatalError("Unexpected runtime error. MLMultiArray")
+			}
+			var values = [json["clouds"]["all"].doubleValue,
+						  json["main"]["humidity"].doubleValue,
+						  round(json["main"]["temp"].doubleValue),
+						  round(json["visibility"].doubleValue / 1609.344),
+						  self.wind_bft(json["wind"]["speed"].doubleValue)
+						  ]
 
-				
-				let day_of_week = Calendar.current.component(.weekday, from: Date()) // 1 - 7\
-				values.append(Double(day_of_week))
+			
+			let day_of_week = Calendar.current.component(.weekday, from: Date()) // 1 - 7\
+			values.append(Double(day_of_week))
 
-				let is_weekend  = (day_of_week == 1 || day_of_week == 7)
-				values.append(is_weekend ? 1 : 0)
-
-
-				//month
-				let month = Calendar.current.component(.month, from: Date())
-				values.append(Double(month))
-				
-				//season
-				var season = [Double](repeating: 0.0, count: 4)
-				if (month>2 && month <= 5) {
-					season[0] = 1
-				} else if (month >= 6 && month <= 8) {
-					season[1] = 1
-				} else if (month >= 9 && month <= 11) {
-					season[2] = 1
-				} else {
-					season[3] = 1
-				}
-				values.append(contentsOf: season)
-
-				//part of day
-				let current_hour = Calendar.current.component(.hour, from: Date())
-				var part_of_day = [Double](repeating: 0.0, count: 4)
-
-				if (current_hour  >= 5 && current_hour <= 11) {
-					part_of_day[0] = 1
-				} else if (current_hour >= 12 && current_hour <= 17) {
-					part_of_day[1] = 1
-				} else if (current_hour >= 18 && current_hour <= 22) {
-					part_of_day[2] = 1
-				} else {
-					part_of_day[3] = 1
-				}
-				values.append(contentsOf: (part_of_day))
-
-				//weather condition
-				values.append(contentsOf: self.cloundsToOneHot(json["weather"][0]["main"].stringValue))
-				
-				//wind direction
-				values.append(contentsOf: self.windDegToOneHot(json["wind"]["deg"].doubleValue))
-
-				
-
-				for (index, element) in values.enumerated() {
-					mlMultiArray[index] = NSNumber(floatLiteral: element )
-				}
-//                    print("mlMultiArray",mlMultiArray)
-				let input = CoffeeBotInput(features: mlMultiArray)
-
-				do {
-					let prediction = try model.prediction(from: input)
-					let classLabel = prediction.featureValue(for: "type")?.int64Value
-					let classProbability = Float(prediction.featureValue(for: "classProbability")!.dictionaryValue[classLabel]!)
-
-					let result = CoffeePrediction(classLabel: classLabel, classProbability: classProbability)
+			let is_weekend  = (day_of_week == 1 || day_of_week == 7)
+			values.append(is_weekend ? 1 : 0)
 
 
-					completion(result, json)
-				} catch {
-					print(error)
-				}
+			//month
+			let month = Calendar.current.component(.month, from: Date())
+			values.append(Double(month))
+			
+			//season
+			var season = [Double](repeating: 0.0, count: 4)
+			if (month>2 && month <= 5) {
+				season[0] = 1
+			} else if (month >= 6 && month <= 8) {
+				season[1] = 1
+			} else if (month >= 9 && month <= 11) {
+				season[2] = 1
+			} else {
+				season[3] = 1
+			}
+			values.append(contentsOf: season)
 
-					
-                
-            } else {
-                // Fallback on earlier versions
-            }
+			//part of day
+			let current_hour = Calendar.current.component(.hour, from: Date())
+			var part_of_day = [Double](repeating: 0.0, count: 4)
+
+			if (current_hour  >= 5 && current_hour <= 11) {
+				part_of_day[0] = 1
+			} else if (current_hour >= 12 && current_hour <= 17) {
+				part_of_day[1] = 1
+			} else if (current_hour >= 18 && current_hour <= 22) {
+				part_of_day[2] = 1
+			} else {
+				part_of_day[3] = 1
+			}
+			values.append(contentsOf: (part_of_day))
+
+			//weather condition
+			values.append(contentsOf: self.cloundsToOneHot(json["weather"][0]["main"].stringValue))
+			
+			//wind direction
+			values.append(contentsOf: self.windDegToOneHot(json["wind"]["deg"].doubleValue))
+
+			
+
+			for (index, element) in values.enumerated() {
+				mlMultiArray[index] = NSNumber(floatLiteral: element )
+			}
+			let input = CoffeeBotInput(features: mlMultiArray)
+
+			do {
+				let prediction = try model.prediction(from: input)
+				let classLabel = prediction.featureValue(for: "type")?.int64Value
+				let classProbability = Float(prediction.featureValue(for: "classProbability")!.dictionaryValue[classLabel]!)
+
+				let result = CoffeePrediction(classLabel: classLabel, classProbability: classProbability)
+
+
+				completion(result, json)
+			} catch {
+				print(error)
+			}
         })
     }
     

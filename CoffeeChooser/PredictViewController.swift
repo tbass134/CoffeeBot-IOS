@@ -54,25 +54,25 @@ class PredictViewController: SuperViewController {
 			iconHeightConstraint.constant = 200
 		}
         
-        if #available(iOS 12.0, *) {
-            INPreferences.requestSiriAuthorization { (status) in
+		
+		INPreferences.requestSiriAuthorization { (status) in
 
-                if status != .authorized {
-                    return
-                }
-                let intent = GetCoffeeTypeIntent()
-                intent.suggestedInvocationPhrase = "What coffee should I drink?"
+			if status != .authorized {
+				return
+			}
+			let intent = GetCoffeeTypeIntent()
+			intent.suggestedInvocationPhrase = "What coffee should I drink?"
 
-                let addShortcutButton = INUIAddVoiceShortcutButton(style: .whiteOutline)
-                addShortcutButton.shortcut = INShortcut(intent: intent)
-                addShortcutButton.delegate = self
+			let addShortcutButton = INUIAddVoiceShortcutButton(style: .whiteOutline)
+			addShortcutButton.shortcut = INShortcut(intent: intent)
+			addShortcutButton.delegate = self
 
-                addShortcutButton.translatesAutoresizingMaskIntoConstraints = false
-                self.weatherView?.siriView.addSubview(addShortcutButton)
-                self.weatherView?.siriView.centerXAnchor.constraint(equalTo: addShortcutButton.centerXAnchor).isActive = true
-                self.weatherView?.siriView.centerYAnchor.constraint(equalTo: addShortcutButton.centerYAnchor).isActive = true
-            }
-        }
+			addShortcutButton.translatesAutoresizingMaskIntoConstraints = false
+			self.weatherView?.siriView.addSubview(addShortcutButton)
+			self.weatherView?.siriView.centerXAnchor.constraint(equalTo: addShortcutButton.centerXAnchor).isActive = true
+			self.weatherView?.siriView.centerYAnchor.constraint(equalTo: addShortcutButton.centerYAnchor).isActive = true
+		}
+		
     }
     
 	@objc func locationUpdated(notification: NSNotification) {
@@ -113,11 +113,10 @@ class PredictViewController: SuperViewController {
                 return
             }
             
-            if #available(iOS 12.0, *) {
-                let getCoffeeTypeIntent = GetCoffeeTypeIntent()
-                getCoffeeTypeIntent.suggestedInvocationPhrase = "What coffee should I drink?"
-				getCoffeeTypeIntent.donate("predict")
-            }
+			let getCoffeeTypeIntent = GetCoffeeTypeIntent()
+			getCoffeeTypeIntent.suggestedInvocationPhrase = "What coffee should I drink?"
+			getCoffeeTypeIntent.donate("predict")
+			
 
             self.weatherView?.weatherData = json
             self.weatherView?.view.isHidden = false

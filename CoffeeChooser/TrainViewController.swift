@@ -94,13 +94,13 @@ class TrainViewController: SuperViewController  {
         guard let location = self.lastlocation else {
             return
         }
-		if #available(iOS 12.0, *) {
-			if coffeeType == Coffee.Hot {
-				SelectHotCoffeeIntent().donate("selected_hot_coffee")
-			} else {
-				SelectIcedCoffeeIntent().donate("selected_iced_coffee")
-			}
+		
+		if coffeeType == Coffee.Hot {
+			SelectHotCoffeeIntent().donate("selected_hot_coffee")
+		} else {
+			SelectIcedCoffeeIntent().donate("selected_iced_coffee")
 		}
+		
         CoffeeTypeTrain.shared.train(location, coffeeType: coffeeType) { (success) in
             
             let alert = UIAlertController(title: "Coffee Type Saved", message: "Your input was saved! Come back again to enter your enter coffee type when you order more coffee!", preferredStyle: .alert)
@@ -184,12 +184,8 @@ extension TrainViewController: UICollectionViewDelegate, UICollectionViewDataSou
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		
-		if #available(iOS 11.0, *) {
-			return CGSize(width: (view.safeAreaLayoutGuide.layoutFrame.width), height: 200)
-		} else {
-			// Fallback on earlier versions
-			return CGSize(width: (collectionView.frame.size.width), height: 200)
-		}
+		return CGSize(width: (view.safeAreaLayoutGuide.layoutFrame.width), height: 200)
+		
 	}
 }
 
@@ -222,35 +218,34 @@ extension TrainViewController:CoffeeCellDelegate {
 class CollectionViewCell:UICollectionViewCell {
     var type:Coffee? {
         didSet {
-            if #available(iOS 12.0, *) {
-                INPreferences.requestSiriAuthorization { (status) in
-                    
-                    if status != .authorized {
-                        return
-                    }
+			INPreferences.requestSiriAuthorization { (status) in
+				
+				if status != .authorized {
+					return
+				}
 
-                    let addShortcutButton = INUIAddVoiceShortcutButton(style: .whiteOutline)
+				let addShortcutButton = INUIAddVoiceShortcutButton(style: .whiteOutline)
 
-                    if self.type == Coffee.Hot {
-                        let intent = SelectHotCoffeeIntent()
-                        intent.suggestedInvocationPhrase = "I'm having hot coffee"
-                        addShortcutButton.shortcut = INShortcut(intent: intent)
+				if self.type == Coffee.Hot {
+					let intent = SelectHotCoffeeIntent()
+					intent.suggestedInvocationPhrase = "I'm having hot coffee"
+					addShortcutButton.shortcut = INShortcut(intent: intent)
 
-                    } else if self.type == Coffee.Iced {
-                        let intent = SelectIcedCoffeeIntent()
-                        intent.suggestedInvocationPhrase = "I'm having iced coffee"
-                        addShortcutButton.shortcut = INShortcut(intent: intent)
-                    }
-                    
-                    addShortcutButton.delegate = self as INUIAddVoiceShortcutButtonDelegate
-                    
-                    addShortcutButton.translatesAutoresizingMaskIntoConstraints = false
-                    self.siriView.addSubview(addShortcutButton)
-                    self.siriView.centerXAnchor.constraint(equalTo: addShortcutButton.centerXAnchor).isActive = true
-                    self.siriView.centerYAnchor.constraint(equalTo: addShortcutButton.centerYAnchor).isActive = true
-                }
+				} else if self.type == Coffee.Iced {
+					let intent = SelectIcedCoffeeIntent()
+					intent.suggestedInvocationPhrase = "I'm having iced coffee"
+					addShortcutButton.shortcut = INShortcut(intent: intent)
+				}
+				
+				addShortcutButton.delegate = self as INUIAddVoiceShortcutButtonDelegate
+				
+				addShortcutButton.translatesAutoresizingMaskIntoConstraints = false
+				self.siriView.addSubview(addShortcutButton)
+				self.siriView.centerXAnchor.constraint(equalTo: addShortcutButton.centerXAnchor).isActive = true
+				self.siriView.centerYAnchor.constraint(equalTo: addShortcutButton.centerYAnchor).isActive = true
+			}
     
-            }
+				
         }
     }
 	

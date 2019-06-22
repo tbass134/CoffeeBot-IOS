@@ -50,12 +50,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
     
-        
-        if #available(iOS 12.0, *) {
-            guard userActivity.activityType == NSStringFromClass(GetCoffeeTypeIntent.self) else {
-                print("Can't continue unknown NSUserActivity type %@", userActivity.activityType)
-                return false
-            }
+		guard userActivity.activityType == NSStringFromClass(GetCoffeeTypeIntent.self) else {
+			print("Can't continue unknown NSUserActivity type %@", userActivity.activityType)
+			return false
+				
         }
         
         guard let window = window,
