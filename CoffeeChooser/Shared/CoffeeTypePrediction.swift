@@ -34,80 +34,88 @@ class CoffeeTypePrediction {
             }
 
             if #available(iOS 11.0, *) {
-                CoffeeBotModel.shared.downloadModel({ (success) in
-                    let model = CoffeeBotModel.shared.loadModel()
-                    
-                    
-                    guard let mlMultiArray = try? MLMultiArray(shape:[23,1], dataType:MLMultiArrayDataType.double) else {
-                        fatalError("Unexpected runtime error. MLMultiArray")
-                    }
-                    var values = [json["clouds"]["all"].doubleValue,
-                                  json["main"]["humidity"].doubleValue,
-                                  round(json["main"]["temp"].doubleValue),
-                                  round(json["visibility"].doubleValue / 1609.344),
-                                  round(json["wind"]["speed"].doubleValue),
-                                  ]
+				let model = CoffeeBot().model
+			
+				
+				
+				guard let mlMultiArray = try? MLMultiArray(shape:[40,1], dataType:MLMultiArrayDataType.double) else {
+					fatalError("Unexpected runtime error. MLMultiArray")
+				}
+				var values = [json["clouds"]["all"].doubleValue,
+							  json["main"]["humidity"].doubleValue,
+							  round(json["main"]["temp"].doubleValue),
+							  round(json["visibility"].doubleValue / 1609.344),
+							  self.wind_bft(json["wind"]["speed"].doubleValue)
+							  ]
 
-                    
-                    let day_of_week = Calendar.current.component(.weekday, from: Date()) // 1 - 7\
-                    values.append(Double(day_of_week))
+				
+				let day_of_week = Calendar.current.component(.weekday, from: Date()) // 1 - 7\
+				values.append(Double(day_of_week))
 
-                    let is_weekend  = (day_of_week == 1 || day_of_week == 7)
-                    values.append(is_weekend ? 1 : 0)
-
-
-
-                    //season_fall
-                    let month = Calendar.current.component(.month, from: Date())
-                    var season = [Double](repeating: 0.0, count: 4)
-                    if (month>2 && month <= 5) {
-                        season[0] = 1
-                    } else if (month >= 6 && month <= 8) {
-                        season[1] = 1
-                    } else if (month >= 9 && month <= 11) {
-                        season[2] = 1
-                    } else {
-                        season[3] = 1
-                    }
-                    values.append(contentsOf: season)
-
-                    let current_hour = Calendar.current.component(.hour, from: Date())
-                    var part_of_day = [Double](repeating: 0.0, count: 4)
-
-                    if (current_hour  >= 5 && current_hour <= 11) {
-                        part_of_day[0] = 1
-                    } else if (current_hour >= 12 && current_hour <= 17) {
-                        part_of_day[1] = 1
-                    } else if (current_hour >= 18 && current_hour <= 22) {
-                        part_of_day[2] = 1
-                    } else {
-                        part_of_day[3] = 1
-                    }
-                    values.append(contentsOf: (part_of_day))
-
-                    values.append(contentsOf: self.toOneHot(json["weather"][0]["main"].stringValue))
+				let is_weekend  = (day_of_week == 1 || day_of_week == 7)
+				values.append(is_weekend ? 1 : 0)
 
 
-                    for (index, element) in values.enumerated() {
-                        mlMultiArray[index] = NSNumber(floatLiteral: element )
-                    }
+				//month
+				let month = Calendar.current.component(.month, from: Date())
+				values.append(Double(month))
+				
+				//season
+				var season = [Double](repeating: 0.0, count: 4)
+				if (month>2 && month <= 5) {
+					season[0] = 1
+				} else if (month >= 6 && month <= 8) {
+					season[1] = 1
+				} else if (month >= 9 && month <= 11) {
+					season[2] = 1
+				} else {
+					season[3] = 1
+				}
+				values.append(contentsOf: season)
+
+				//part of day
+				let current_hour = Calendar.current.component(.hour, from: Date())
+				var part_of_day = [Double](repeating: 0.0, count: 4)
+
+				if (current_hour  >= 5 && current_hour <= 11) {
+					part_of_day[0] = 1
+				} else if (current_hour >= 12 && current_hour <= 17) {
+					part_of_day[1] = 1
+				} else if (current_hour >= 18 && current_hour <= 22) {
+					part_of_day[2] = 1
+				} else {
+					part_of_day[3] = 1
+				}
+				values.append(contentsOf: (part_of_day))
+
+				//weather condition
+				values.append(contentsOf: self.cloundsToOneHot(json["weather"][0]["main"].stringValue))
+				
+				//wind direction
+				values.append(contentsOf: self.windDegToOneHot(json["wind"]["deg"].doubleValue))
+
+				
+
+				for (index, element) in values.enumerated() {
+					mlMultiArray[index] = NSNumber(floatLiteral: element )
+				}
 //                    print("mlMultiArray",mlMultiArray)
-                    let input = coffee_predictionInput(input: mlMultiArray)
+				let input = CoffeeBotInput(features: mlMultiArray)
 
-                    do {
-                        let prediction = try model!.prediction(from: input)
-                        let classLabel = prediction.featureValue(for: "classLabel")?.int64Value
-                        let classProbability = Float(prediction.featureValue(for: "classProbability")!.dictionaryValue[classLabel]!)
+				do {
+					let prediction = try model.prediction(from: input)
+					let classLabel = prediction.featureValue(for: "type")?.int64Value
+					let classProbability = Float(prediction.featureValue(for: "classProbability")!.dictionaryValue[classLabel]!)
 
-                        let result = CoffeePrediction(classLabel: classLabel, classProbability: classProbability)
+					let result = CoffeePrediction(classLabel: classLabel, classProbability: classProbability)
 
 
-                        completion(result, json)
-                    } catch {
-                        print(error)
-                    }
+					completion(result, json)
+				} catch {
+					print(error)
+				}
 
-                })
+					
                 
             } else {
                 // Fallback on earlier versions
@@ -115,7 +123,7 @@ class CoffeeTypePrediction {
         })
     }
     
-    func toOneHot(_ string:String) -> [Double] {
+    func cloundsToOneHot(_ string:String) -> [Double] {
         var str = string
         var items = [Double](repeating: 0.0, count: 8)
         let weather_conds:[String] = ["Clear", "Clouds", "Fog", "Haze", "Rain", "Smoke", "Snow", "Thunderstorm"]
@@ -144,5 +152,43 @@ class CoffeeTypePrediction {
         items[index] = 1
         return items
     }
+	
+	
+	
+	func wind_bft(_ ms:Double) ->Double {
+		
+		
+		//"Convert wind from metres per second to Beaufort scale"
+		let _bft_threshold = [
+			0.3, 1.5, 3.4, 5.4, 7.9, 10.7, 13.8, 17.1, 20.7, 24.4, 28.4, 32.6]
 
+		for bft in _bft_threshold {
+			if ms < bft {
+				return bft
+			}
+		}
+
+		return Double(_bft_threshold.count)
+//		return ms
+	}
+	
+	func windDegToOneHot(_ x:Double) -> [Double] {
+		
+		let _directions = ["E","ENE","ESE","N","NE","NNE","NNW","NW","S","SE","SSE","SSW","SW","W","WNW","WSW"]
+		
+		var mod = Double(x.truncatingRemainder(dividingBy: 360)) / 22.5
+		mod = round(mod)
+		let direction = _directions[Int(mod)]
+
+
+		var items = [Double](repeating: 0.0, count: _directions.count)
+		
+		guard let index = _directions.index(of: direction) else {
+			items[0] = 1
+			return items
+		}
+		
+		items[index] = 1
+		return items
+	}
 }
