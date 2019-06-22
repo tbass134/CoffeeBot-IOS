@@ -8,6 +8,8 @@ def sharedPods
 	pod 'Firebase'
 	pod 'Firebase/Database'
 	pod 'Firebase/Auth'
+	pod 'Firebase/Analytics'
+	pod 'Firebase/Storage'
 	pod 'Firebase/Core'
 	pod 'SwiftSVG'
 	pod 'SwiftLocation', '~> 3.2.3'

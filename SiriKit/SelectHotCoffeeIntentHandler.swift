@@ -17,7 +17,6 @@ public class SelectHotCoffeeIntentHandler:NSObject, SelectHotCoffeeIntentHandlin
             
         }
         
-
 		guard let lastLoc = LocationManager.shared.lastLocation() else {
 			let response = SelectHotCoffeeIntentResponse(code: .failure, userActivity: nil)
 			completion(response)

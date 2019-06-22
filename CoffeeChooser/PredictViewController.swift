@@ -55,6 +55,8 @@ class PredictViewController: SuperViewController {
 		}
         
 		
+		
+		
 		INPreferences.requestSiriAuthorization { (status) in
 
 			if status != .authorized {

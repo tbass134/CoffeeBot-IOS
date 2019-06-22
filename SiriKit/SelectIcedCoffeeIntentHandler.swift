@@ -25,7 +25,7 @@ public class SelectIcedCoffeeIntentHandler:NSObject, SelectIcedCoffeeIntentHandl
             if success {
                 let response = SelectIcedCoffeeIntentResponse(code: .success, userActivity: nil)
                 completion(response)
-            } else {
+            } else { 
                 let response = SelectIcedCoffeeIntentResponse(code: .failure, userActivity: nil)
                 completion(response)
             }
