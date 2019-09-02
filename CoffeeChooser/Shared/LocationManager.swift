@@ -18,6 +18,7 @@ extension Notification.Name {
 class LocationManager: NSObject {
 
 	static let shared = LocationManager()
+    var previousLocation:CLLocation?
 
 	private override init() {
 		super.init()
@@ -41,7 +42,12 @@ class LocationManager: NSObject {
     func startReceivingSignificantLocationChanges() {
         Locator.subscribeSignificantLocations(onUpdate: { newLocation in
             print("New location \(newLocation)")
-            self.locationFound(newLocation)
+            if self.previousLocation != nil {
+                if newLocation.distance(from:  self.previousLocation!) > 20 {
+                    self.locationFound(newLocation)
+                }
+            }
+            self.previousLocation = newLocation
         }) { (error, lastLocation) -> (Void) in
             self.locationError(error,lastLocation)
         }
