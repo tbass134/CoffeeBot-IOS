@@ -55,7 +55,7 @@ class WebViewController: UIViewController, WKUIDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		var url = URL(string:"https://s3.amazonaws.com/coffee-chooser-app/privacy_policy.html")
+		let url = URL(string:"https://s3.amazonaws.com/coffee-chooser-app/privacy_policy.html")
 
 		let myRequest = URLRequest(url: url!)
 		webView.load(myRequest)

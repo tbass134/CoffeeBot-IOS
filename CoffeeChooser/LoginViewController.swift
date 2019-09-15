@@ -84,7 +84,6 @@ class LoginViewController: SuperViewController, UITextFieldDelegate {
 	}
 	@IBAction func skipAction(_ sender: Any) {
 		Auth.auth().signInAnonymously() { (authResult, error) in
-			print("signInAnonymously", error)
 			if (error == nil) {
 				self.performSegue(withIdentifier: "didLogin", sender: self)
 			}

@@ -30,7 +30,6 @@ public class GetCoffeeTypeIntentHandler: NSObject, GetCoffeeTypeIntentHandling {
                     return
                 }
                 
-                print("classLabel \(result.classLabel)")
                 let response = GetCoffeeTypeIntentResponse(code: .success, userActivity: nil)
 
                 if result.classLabel == 1 {

@@ -26,7 +26,7 @@ class CoffeeBotModel {
 		let storageRef = storage.reference()
 		let modelRef = storageRef.child("CoffeeBot.mlmodel")
 		
-		let downloadTask = modelRef.write(toFile: CoffeeBotModel.destinationFileUrl!) { url, error in
+		_ = modelRef.write(toFile: CoffeeBotModel.destinationFileUrl!) { url, error in
 			if let error = error {
 				print("error downloading model",error)
 				// Uh-oh, an error occurred!

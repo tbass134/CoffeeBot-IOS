@@ -153,7 +153,7 @@ class CoffeeTypePrediction {
             str = "Clear"
         }
         
-        guard let index = weather_conds.index(of: str) else {
+        guard let index = weather_conds.firstIndex(of: str) else {
             items[0] = 1
             return items
         }
@@ -189,7 +189,7 @@ class CoffeeTypePrediction {
 
 		var items = [Double](repeating: 0.0, count: _directions.count)
 		
-		guard let index = _directions.index(of: direction) else {
+		guard let index = _directions.firstIndex(of: direction) else {
 			items[0] = 1
 			return items
 		}

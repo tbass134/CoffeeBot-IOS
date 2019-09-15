@@ -30,7 +30,7 @@ class ApplicationBuilder {
     }
     
     private static func syncFirebaseKeychain() {
-        guard let data = (try? appKeychain.getData(userKeychainKey)) as? Data else {
+		guard let data = (try? appKeychain.getData(userKeychainKey)) else {
             try! extensionKeychain.remove(userKeychainKey)
             return
         }

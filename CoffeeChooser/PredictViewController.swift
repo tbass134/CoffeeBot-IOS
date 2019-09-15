@@ -125,8 +125,8 @@ class PredictViewController: SuperViewController {
             
           
             
-            print("classLabel \(result.classLabel)")
-            print("classProbability \(result.classProbability)")
+			print("classLabel \(String(describing: result.classLabel))")
+			print("classProbability \(String(describing: result.classProbability))")
 
             
             if result.classLabel == 1 {
